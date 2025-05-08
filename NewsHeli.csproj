@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB5373F8-7E20-44A5-9324-BA53AF5AB24A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NewsHeli</RootNamespace>
+    <AssemblyName>NewsHeli</AssemblyName>
+    <LangVersion>latest</LangVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LSPD First Response">
+      <HintPath>I:\Program Files\Rockstar Games\Grand Theft Auto V\plugins\LSPD First Response.dll</HintPath>
+    </Reference>
+    <Reference Include="RAGENativeUI, Version=1.9.3.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>packages\RAGENativeUI.1.9.3\lib\net472\RAGENativeUI.dll</HintPath>
+    </Reference>
+    <Reference Include="RagePluginHook, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>packages\RagePluginHook.1.86.1\lib\net472\RagePluginHook.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="NewsHeli.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Config.cs" />
+    <Compile Include="Utils\Extentions\EntityExtentions.cs" />
+    <Compile Include="Utils\Extentions\GameFiberExtentions.cs" />
+    <Compile Include="Utils\Global.cs" />
+    <Compile Include="MainFiber.cs" />
+    <Compile Include="Utils\Managers\NewsHeliManager.cs" />
+    <Compile Include="Utils\Managers\NewsVanManager.cs" />
+    <Compile Include="Utils\Menu.cs" />
+    <Compile Include="Utils\RNUIMenu.cs" />
+    <Compile Include="Utils\Xml\CustomizationXml.cs" />
+    <Compile Include="Utils\Xml\DriverData.cs" />
+    <Compile Include="Utils\Xml\HeliData.cs" />
+    <Compile Include="Utils\Logger.cs" />
+    <Compile Include="Utils\Xml\PassengerData.cs" />
+    <Compile Include="Utils\Xml\PilotData.cs" />
+    <Compile Include="Utils\Xml\VanData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>@echo off
+SET GTAPATH=I:\Program Files\Rockstar Games\Grand Theft Auto V
+SET DEBUG=C:\Users\Chris\Desktop\YasdsProjects\NewsHeli\bin\Debug
+
+if exist "%25GTAPATH%25" (
+    copy /Y "%25DEBUG%25\NewsHeli.dll" "%25GTAPATH%25\Plugins\LSPDFR\NewsHeli.dll"
+    copy /Y "%25DEBUG%25\NewsHeli.pdb" "%25GTAPATH%25\Plugins\LSPDFR\NewsHeli.pdb"
+)
+</PostBuildEvent>
+  </PropertyGroup>
+</Project>
