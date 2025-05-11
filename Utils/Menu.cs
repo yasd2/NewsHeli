@@ -8,6 +8,7 @@ internal class Menu
     internal static Object Camera;
     internal static Object Mic;
     internal static bool IsMediaOnScene;
+    internal static GameFiber GF_ProcessMenu;
 
     internal static void Start()
     {
@@ -81,6 +82,12 @@ internal class Menu
         Keys.D8);
 
 
-        GameFiber.ExecuteNewWhile(()=> RNUIMenu.ProcessMenu(), "NewsHeliMenu", ()=> true);
+        GF_ProcessMenu = GameFiber.ExecuteNewWhile(()=> RNUIMenu.ProcessMenu(), "NewsHeliMenu", ()=> true);
+    }
+
+
+    internal static void SafeAbort()
+    {
+        GF_ProcessMenu.SafeAbort();
     }
 }

@@ -84,6 +84,7 @@ internal class NewsVanManager
         "",
         () => Van.Exists() && Driver.Exists() && Suspect.Exists());*/
 
+        Ped lastPed = new Ped();
 
         GF_Loop5s = GameFiber.ExecuteNewWhile(() =>
         {
@@ -100,20 +101,22 @@ internal class NewsVanManager
             }
 
 
-            Ped target = new Ped();
 
             foreach (Ped ped in peds)
             {
                 if (ped.Exists() && ped.IsInAnyVehicle(false) && ped.SeatIndex == -1)
                 {
-                    Logger.Log("New pursuit target ped");
-                    target = ped;
-                    break;
+                    if (lastPed != ped)
+                    {
+                        Logger.Log("New pursuit target ped");
+                        lastPed = ped;
+                        break;
+                    }
                 }
             }
 
             // native, um suspect zu folgen!!!!
-            if (target.Exists() && Driver)
+            if (lastPed.Exists() && Driver.Exists() && lastPed.CurrentVehicle.Exists())
             {
                 Logger.Log("Van is chasing suspect");
                 //NativeFunction.Natives.TASK_​VEHICLE_​CHASE(Driver, target);
@@ -124,10 +127,10 @@ internal class NewsVanManager
                     (uint)VehicleDrivingFlags.Emergency,
                     40f, 35f, false);*/
 
-                NativeFunction.Natives.TASK_​VEHICLE_​FOLLOW(Driver, Van, target,
+                NativeFunction.Natives.TASK_​VEHICLE_​FOLLOW(Driver, Van, lastPed.CurrentVehicle,
                     MathHelper.ConvertKilometersPerHourToMetersPerSecond(120f),
                     (uint)VehicleDrivingFlags.Emergency,
-                    45f);
+                    30/*45f*/);
 
                 //NativeFunction.Natives.SET_TASK_VEHICLE_CHASE_IDEAL_PURSUIT_DISTANCE(Driver, 40f);
                 //NativeFunction.Natives.SET_TASK_VEHICLE_CHASE_BEHAVIOR_FLAG(Driver, 32, true);
@@ -135,7 +138,9 @@ internal class NewsVanManager
             }
             else
             {
-                Logger.Log("target doesn't exist");
+                if (!lastPed) Logger.Log("lastPed doesn't exist");
+                if (!Driver) Logger.Log("Van Driver doesn't exist");
+                if (!lastPed.CurrentVehicle) Logger.Log("lastPeds CurrentVehicle doesn't exist");
             }
 
 

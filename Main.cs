@@ -1,6 +1,4 @@
-﻿
-
-namespace NewsHeli;
+﻿namespace NewsHeli;
 
 /* wenn ein ped verhaftet wird während pursuit, dann audio
  * wenn ein ped stirbt während pursuit, dann audio _> viewer discretion is advised
@@ -12,7 +10,7 @@ public class Main : Plugin
 {
     public override void Initialize()
     {
-        Game.LogTrivial("NewsHeli by Yasd loaded");
+        Logger.Log("NewsHeli by Yasd loaded");
         Game.DisplayNotification($"~g~NewsHeli by Yasd {Assembly.GetExecutingAssembly().GetName().Version} loaded");
 
         CustomizationXml.Read();
@@ -20,12 +18,16 @@ public class Main : Plugin
         MainFiber.Start();
 
         //Menu.Start();
+
+        //Game.AddConsoleCommands();
     }
 
     public override void Finally()
     {
-        Game.LogTrivial("NewsHeli unloaded");
+        Logger.Log("NewsHeli unloaded");
 
         MainFiber.SafeAbort();
+
+        //Menu.SafeAbort();
     }
 }

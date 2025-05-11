@@ -76,7 +76,7 @@ internal class NewsHeliManager
             Suspect = Functions.GetPursuitPeds(MainFiber.Pursuit).FirstOrDefault();
 
             if (Suspect.Exists() && Pilot.Exists())
-                NativeFunction.Natives.TASK_​HELI_​CHASE(Pilot, Suspect.Position.Around2D(20f), 5f, 5f, 60f);
+                NativeFunction.Natives.TASK_​HELI_​CHASE(Pilot, Suspect, 20f, 20f, 60f); // last 3 are vec3 offsets
 
             GameFiber.Wait(5000);
         },

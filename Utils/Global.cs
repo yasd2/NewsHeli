@@ -20,6 +20,6 @@ global using RAGENativeUI.Elements;
 global using RAGENativeUI.PauseMenu;
 global using System.Windows.Forms;
 global using Object = Rage.Object;
-global using Menu = NewsHeli.Utils.Menu;
+//global using Menu = NewsHeli.Utils.Menu;
 
 internal class Global { } 

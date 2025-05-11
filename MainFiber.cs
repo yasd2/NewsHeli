@@ -42,24 +42,28 @@ internal static class MainFiber
             {
                 GameFiber.Yield();
                 GameFiber.Wait(1000);
-                Logger.Log("Pursuit is null");
+                //Logger.Log("Pursuit is null");
             }
 
             
-            IsPursuitActive = true;
-
-            
+            IsPursuitActive = true;  
         }
+
+
+
 
         if (IsPursuitActive)
         {
+            Logger.Log("A pursuit is active");
+
+
             // check if pursuit is running on loop
             while (Functions.IsPursuitStillRunning(Pursuit))
             {
                 GameFiber.Yield();
                 GameFiber.Wait(1000);
                 timeInSeconds++;
-                Logger.Log($"Pursuit active since {timeInSeconds}s");
+                //Logger.Log($"Pursuit active since {timeInSeconds}s");
 
 
                 if (timeInSeconds == Config.ArrivalTimeHeli)
@@ -80,6 +84,7 @@ internal static class MainFiber
                 }
 
 
+
                 if (timeInSeconds == Config.ArrivalTimeVan && Config.EnableVan)
                 {
                     // Start Vanclass
@@ -87,6 +92,7 @@ internal static class MainFiber
                     NewsVanManager.Create();
                 }
             }
+
 
 
             // delete all
@@ -98,15 +104,18 @@ internal static class MainFiber
 
             NewsHeliManager?.SafeAbort();
             NewsVanManager?.SafeAbort();
-            // ...
+
 
             IsPursuitActive = false;
+            Logger.Log("A pursuit has ended");
         }
     }
 
 
+
     internal static void SafeAbort()
     {
+        Logger.Log("MainFiber safe aborted");
         GF_MainFiber.SafeAbort();
 
         NewsHeliManager?.SafeAbort();
