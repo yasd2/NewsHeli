@@ -23,11 +23,13 @@ internal class UpdateChecker
             }
             else if (UpdateResult.FutureVersion)
             {
-                Game.DisplayNotification("~r~BETA detected.~w~~n~Thank you for testing NewsHeli!", "NewsHeli", "by Yasd", "DIA_PILOT", "DIA_PILOT");
+                Game.DisplayNotification("DIA_PILOT", "DIA_PILOT", "NewsHeli", "~g~UpdateChecker", 
+                    "~r~BETA detected.~w~~n~Thank you for testing NewsHeli!");
             }
             else if (UpdateResult.UpdateAvailable)
             {
-                Game.DisplayNotification("~r~Old version detected.~w~~n~Update when possible!", "NewsHeli", "by Yasd", "CHAR_LESTER_DEATHWISH", "CHAR_LESTER_DEATHWISH");
+                Game.DisplayNotification("CHAR_LESTER_DEATHWISH", "CHAR_LESTER_DEATHWISH", "NewsHeli", "~g~UpdateChecker", 
+                    "~r~Old version detected.~w~~n~Update when possible!");
             }
             else
             {
