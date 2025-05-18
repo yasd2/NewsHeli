@@ -18,17 +18,27 @@ internal class NewsVanManager
         try
         {
             Ped suspect = Functions.GetPursuitPeds(MainFiber.Pursuit).FirstOrDefault();
-            Vector3 pos = suspect.Exists() ? World.GetNextPositionOnStreet(suspect.Position.Around2D(70f)) : World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around2D(70f));
+            //Vector3 pos = suspect.Exists() ? World.GetNextPositionOnStreet(suspect.Position.Around2D(70f)) : World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around2D(70f));
 
-            Vector3 position = new Vector3(pos.X, pos.Y, World.GetGroundZ(pos, false, false) ?? pos.Z);
+            Vector3 outputPosition;
+            float heading;
 
-            Van = VanData.SpawnRandom(position, 0);
+            if (Suspect.Exists())
+                WorldPos.GetRoadPosWithHeading(World.GetNextPositionOnStreet(suspect.Position.Around2D(70f)), out outputPosition, out heading);
+            else
+                WorldPos.GetRoadPosWithHeading(World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around2D(70f)), out outputPosition, out heading);
+
+
+
+            Van = VanData.SpawnRandom(outputPosition, heading);
             
             if (!Van.Exists())
             {
                 Logger.Log("Van doesn't exist, abort");
                 return;
             }
+            NativeFunction.Natives.SET_VEHICLE_ON_GROUND_PROPERLY<bool>(Van, 5.0f);
+
             Van.TopSpeed = MathHelper.ConvertKilometersPerHourToMetersPerSecond(120f);
 
 

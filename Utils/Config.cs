@@ -11,7 +11,7 @@ internal class Config
 
     public static void Read()
     {
-        var ini = new InitializationFile("plugins/LSPDFR/MCCallouts.ini");
+        var ini = new InitializationFile("plugins/LSPDFR/NewsHeli.ini");
 
         if (!ini.Exists())
         {
@@ -19,14 +19,23 @@ internal class Config
             return;
         }
 
-        EnableAIDispatch = ini.ReadBoolean("Settings", "EnableAIDispatch", EnableAIDispatch);
+        Logger.Log("Reading NewsHeli.ini file...");
 
-        ArrivalTimeHeli = ini.ReadUInt32("Settings", "ArrivalTimeHeli", ArrivalTimeHeli);
+        try
+        {
+            EnableAIDispatch = ini.ReadBoolean("Settings", "EnableAIDispatch", EnableAIDispatch);
 
-        ArrivalTimeVan = ini.ReadUInt32("Settings", "ArrivalTimeVan", ArrivalTimeVan);
+            ArrivalTimeHeli = ini.ReadUInt32("Settings", "ArrivalTimeHeli", ArrivalTimeHeli);
 
-        EnableHeli = ini.ReadBoolean("Settings", "EnableHeli", EnableHeli);
+            ArrivalTimeVan = ini.ReadUInt32("Settings", "ArrivalTimeVan", ArrivalTimeVan);
 
-        EnableVan = ini.ReadBoolean("Settings", "EnableVan", EnableVan);
+            EnableHeli = ini.ReadBoolean("Settings", "EnableHeli", EnableHeli);
+
+            EnableVan = ini.ReadBoolean("Settings", "EnableVan", EnableVan);
+        }
+        catch (Exception e)
+        {
+            Logger.Log("Error reading NewsHeli.ini file: " + e.Message);
+        }
     }
 }

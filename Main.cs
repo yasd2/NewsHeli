@@ -13,6 +13,8 @@ public class Main : Plugin
         Logger.Log("NewsHeli by Yasd loaded");
         Game.DisplayNotification($"~g~NewsHeli by Yasd {Assembly.GetExecutingAssembly().GetName().Version} loaded");
 
+        Config.Read();
+
         CustomizationXml.Read();
 
         MainFiber.Start();
