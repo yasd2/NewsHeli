@@ -11,17 +11,9 @@ public class WorldPos
             heading = headingvar;
             outputPosition = vec1;
             return outputPosition;
-
-            /*if (NativeFunction.Natives.GET_ROAD_BOUNDARY_USING_HEADING<bool>(vec1, headingvar, out Vector3 roadPosition))
-            {
-                if (roadPosition != Vector3.Zero)
-                {
-                    outputPosition = roadPosition;
-                    heading = headingvar;
-                    return roadPosition;
-                }
-            }*/
         }
+
+        Logger.Log("Failed to get closest vehicle node, using input position.");
 
         heading = 0;
         return inputPosition;

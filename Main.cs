@@ -1,17 +1,13 @@
 ﻿namespace NewsHeli;
 
-/* wenn ein ped verhaftet wird während pursuit, dann audio
- * wenn ein ped stirbt während pursuit, dann audio _> viewer discretion is advised
- * 
- * im rnui menu allow media on scene ein median van zur scene rufen mit reporter und kamera mann
- * im menu einen media helicopoter anfrodern
- */
 public class Main : Plugin
 {
     public override void Initialize()
     {
         Logger.Log("NewsHeli by Yasd loaded");
         Game.DisplayNotification($"~g~NewsHeli by Yasd {Assembly.GetExecutingAssembly().GetName().Version} loaded");
+
+        UpdateChecker.Check();
 
         Config.Read();
 

@@ -59,6 +59,7 @@
     <Compile Include="MainFiber.cs" />
     <Compile Include="Utils\Managers\NewsHeliManager.cs" />
     <Compile Include="Utils\Managers\NewsVanManager.cs" />
+    <Compile Include="Utils\UpdateChecker.cs" />
     <Compile Include="Utils\WorldPos.cs" />
     <Compile Include="Utils\Xml\CustomizationXml.cs" />
     <Compile Include="Utils\Xml\DriverData.cs" />
