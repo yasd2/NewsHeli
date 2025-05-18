@@ -5,14 +5,13 @@ namespace NewsHeli.Utils;
 
 internal class NewsVanManager
 {
-    internal Vehicle Van;
-    internal Blip B_Van;
-    internal Ped Driver, Passenger;
-
-    internal Ped Suspect;
-
-    internal GameFiber GF_Loop5s;
-    internal GameFiber GF_Loop;
+    internal Vehicle Van { get; set; }
+    internal Blip B_Van { get; set; }
+    internal Ped Driver { get; set; }
+    internal Ped Passenger { get; set; }
+    internal Ped Suspect { get; set; }
+    internal GameFiber GF_Loop5s { get; set; }
+    internal GameFiber GF_Loop { get; set; }
 
     internal void Create()
     {
@@ -40,7 +39,6 @@ internal class NewsVanManager
                 Logger.Log("Driver doesn't exist, abort");
                 return;
             }
-
 
             Passenger = PassengerData.SpawnRandom(Van.Position.Around2D(10f), 0);
 

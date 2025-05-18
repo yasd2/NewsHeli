@@ -35,9 +35,6 @@
     <Reference Include="LSPD First Response">
       <HintPath>I:\Program Files\Rockstar Games\Grand Theft Auto V\plugins\LSPD First Response.dll</HintPath>
     </Reference>
-    <Reference Include="RAGENativeUI, Version=1.9.3.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>packages\RAGENativeUI.1.9.3\lib\net472\RAGENativeUI.dll</HintPath>
-    </Reference>
     <Reference Include="RagePluginHook, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <HintPath>packages\RagePluginHook.1.86.1\lib\net472\RagePluginHook.dll</HintPath>
     </Reference>

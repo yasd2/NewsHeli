@@ -2,15 +2,11 @@
 
 internal class Config
 {
-    public static Boolean EnableAIDispatch = true;
-
-    public static UInt32 ArrivalTimeHeli = 30;
-
-    public static UInt32 ArrivalTimeVan = 40;
-
-    public static Boolean EnableHeli = true;
-
-    public static Boolean EnableVan = true;
+    public static Boolean EnableAIDispatch { get; set; } = true;
+    public static UInt32 ArrivalTimeHeli { get; set; } = 30;
+    public static UInt32 ArrivalTimeVan { get; set; } = 40;
+    public static Boolean EnableHeli { get; set; } = true;
+    public static Boolean EnableVan { get; set; } = true;
 
 
     public static void Read()
@@ -19,7 +15,7 @@ internal class Config
 
         if (!ini.Exists())
         {
-            Game.LogTrivial("Could not locate 'plugins/LSPDFR/NewsHeli.ini' file!");
+            Game.LogTrivial("FATAL ERROR: Could not locate 'plugins/LSPDFR/NewsHeli.ini' file!");
             return;
         }
 

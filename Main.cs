@@ -17,8 +17,6 @@ public class Main : Plugin
 
         MainFiber.Start();
 
-        //Menu.Start();
-
         //Game.AddConsoleCommands();
     }
 
@@ -27,7 +25,5 @@ public class Main : Plugin
         Logger.Log("NewsHeli unloaded");
 
         MainFiber.SafeAbort();
-
-        //Menu.SafeAbort();
     }
 }

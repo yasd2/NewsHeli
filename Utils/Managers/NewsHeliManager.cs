@@ -2,15 +2,13 @@
 
 internal class NewsHeliManager
 {
-    internal Vehicle Heli;
-    internal Blip B_Heli;
-    internal Boolean HasSearchLight;
-    internal Ped Pilot;
-
-    internal Ped Suspect;
-
-    internal GameFiber GF_Loop5s;
-    internal GameFiber GF_Loop;
+    internal Vehicle Heli { get; set; }
+    internal Blip B_Heli { get; set; }
+    internal Boolean HasSearchLight { get; set; }
+    internal Ped Pilot { get; set; }
+    internal Ped Suspect { get; set; }
+    internal GameFiber GF_Loop5s { get; set; }
+    internal GameFiber GF_Loop { get; set; }
 
     internal void Create()
     {
@@ -76,7 +74,10 @@ internal class NewsHeliManager
             Suspect = Functions.GetPursuitPeds(MainFiber.Pursuit).FirstOrDefault();
 
             if (Suspect.Exists() && Pilot.Exists())
-                NativeFunction.Natives.TASK_​HELI_​CHASE(Pilot, Suspect, 20f, 20f, 60f); // last 3 are vec3 offsets
+            {
+                // void TASK_​HELI_​CHASE(Ped pilot, Entity entityToFollow, Vector3 offset
+                NativeFunction.Natives.TASK_​HELI_​CHASE(Pilot, Suspect, 20f, 20f, 60f);
+            }
 
             GameFiber.Wait(5000);
         },

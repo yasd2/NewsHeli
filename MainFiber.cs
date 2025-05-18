@@ -2,14 +2,12 @@
 
 internal static class MainFiber
 {
-    internal static bool IsPursuitActive;
-    internal static LHandle Pursuit;
-    internal static uint timeInSeconds;
-
-    internal static GameFiber GF_MainFiber;
-
-    internal static NewsHeliManager NewsHeliManager;
-    internal static NewsVanManager NewsVanManager;
+    internal static bool IsPursuitActive { get; set; }
+    internal static LHandle Pursuit { get; set; }
+    internal static uint timeInSeconds { get; set; }
+    internal static GameFiber GF_MainFiber { get; set; }
+    internal static NewsHeliManager NewsHeliManager { get; set; }
+    internal static NewsVanManager NewsVanManager { get; set; }
 
     internal static void Start()
     {

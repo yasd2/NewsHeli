@@ -15,10 +15,10 @@ global using System.IO;
 global using System.Drawing;
 global using LSPD_First_Response.Mod.API;
 global using System.Reflection;
-global using RAGENativeUI;
+/*global using RAGENativeUI;
 global using RAGENativeUI.Elements;
 global using RAGENativeUI.PauseMenu;
-global using System.Windows.Forms;
+global using System.Windows.Forms;*/
 global using Object = Rage.Object;
 //global using Menu = NewsHeli.Utils.Menu;
 
