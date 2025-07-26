@@ -4,6 +4,9 @@ using System.Threading;
 
 namespace NewsHeli.Utils;
 
+/// <summary>
+/// This is an update checker, checks on lcpdfr.com if an update is available.
+/// </summary>
 internal class UpdateChecker
 {
     internal static (bool UpdateAvailable, bool LatestVersion, bool FutureVersion, bool Error) UpdateResult;

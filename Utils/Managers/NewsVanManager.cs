@@ -1,7 +1,4 @@
-﻿using Rage;
-using System.Drawing;
-
-namespace NewsHeli.Utils;
+﻿namespace NewsHeli.Utils;
 
 internal class NewsVanManager
 {
@@ -12,6 +9,7 @@ internal class NewsVanManager
     internal Ped Suspect { get; set; }
     internal GameFiber GF_Loop5s { get; set; }
     internal GameFiber GF_Loop { get; set; }
+
 
     internal void Create()
     {
@@ -63,7 +61,7 @@ internal class NewsVanManager
             Passenger.WarpIntoVehicle(Van, 0);
 
             NativeFunction.Natives.SET_​DRIVER_​ABILITY(Driver, 1.0f);
-            NativeFunction.Natives.SET_​DRIVER_​AGGRESSIVENESS(Driver, 0.2f);
+            NativeFunction.Natives.SET_​DRIVER_​AGGRESSIVENESS(Driver, 0.0f);
 
 
             B_Van = new Blip(Van)
@@ -123,32 +121,41 @@ internal class NewsVanManager
                 }
             }
 
-            // native, um suspect zu folgen!!!!
+            // Native settings to follow suspect
             if (lastPed.Exists() && Driver.Exists() && lastPed.CurrentVehicle.Exists())
             {
                 Logger.Log("Van is chasing suspect");
-                //NativeFunction.Natives.TASK_​VEHICLE_​CHASE(Driver, target);
 
-                /*NativeFunction.Natives.TASK_​VEHICLE_​MISSION_​PED_​TARGET(Driver, Van, target, 
-                    7, // follow
-                    MathHelper.ConvertKilometersPerHourToMetersPerSecond(120f),
-                    (uint)VehicleDrivingFlags.Emergency,
-                    40f, 35f, false);*/
+                /* TASK_VEHICLE_ESCORT
+                   TASK_VEHICLE_FOLLOW
+                   TASK_VEHICLE_CHASE 
+                   TASK_VEHICLE_MISSION */
+
 
                 NativeFunction.Natives.TASK_​VEHICLE_​FOLLOW(Driver, Van, lastPed.CurrentVehicle,
                     MathHelper.ConvertKilometersPerHourToMetersPerSecond(120f),
-                    (uint)VehicleDrivingFlags.Emergency,
-                    30/*45f*/);
+                    (int)VehicleDrivingFlags.Emergency,
+                    40);
 
-                //NativeFunction.Natives.SET_TASK_VEHICLE_CHASE_IDEAL_PURSUIT_DISTANCE(Driver, 40f);
-                //NativeFunction.Natives.SET_TASK_VEHICLE_CHASE_BEHAVIOR_FLAG(Driver, 32, true);
+                /*NativeFunction.Natives.TASK_VEHICLE_ESCORT(Driver, Van, lastPed.CurrentVehicle,
+                    -1,
+                    MathHelper.ConvertKilometersPerHourToMetersPerSecond(120f),
+                    (int)VehicleDrivingFlags.Emergency,
+                    20f,
+                    20,
+                    40f);
 
+
+                // Does NOT work that way, van always pits and rams suspect, even with setting flags
+                NativeFunction.Natives.TASK_​VEHICLE_​CHASE(Driver, lastPed);
+                NativeFunction.Natives.SET_TASK_VEHICLE_CHASE_BEHAVIOR_FLAG(Driver, 32, true);
+                NativeFunction.Natives.SET_TASK_VEHICLE_CHASE_IDEAL_PURSUIT_DISTANCE(Driver, 40f);*/
             }
             else
             {
-                if (!lastPed) Logger.Log("lastPed doesn't exist");
-                if (!Driver) Logger.Log("Van Driver doesn't exist");
-                if (!lastPed.CurrentVehicle) Logger.Log("lastPeds CurrentVehicle doesn't exist");
+                if (!lastPed) { Logger.Log("lastPed doesn't exist"); return; }
+                if (!Driver) { Logger.Log("Van Driver doesn't exist"); return; }
+                if (!lastPed.CurrentVehicle) { Logger.Log("lastPeds CurrentVehicle doesn't exist"); return; }
             }
 
 

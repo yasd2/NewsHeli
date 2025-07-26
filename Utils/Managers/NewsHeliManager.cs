@@ -59,6 +59,9 @@ internal class NewsHeliManager
     }
 
 
+    /// <summary>
+    /// This tasks the helicopter to draw their spotlight on the suspect & follow them.
+    /// </summary>
     internal void Loop()
     {
         GF_Loop = GameFiber.ExecuteNewWhile(() =>
@@ -73,7 +76,7 @@ internal class NewsHeliManager
         {
             Suspect = Functions.GetPursuitPeds(MainFiber.Pursuit).FirstOrDefault();
 
-            if (Suspect.Exists() && Pilot.Exists())
+            if (Heli.Exists() && Suspect.Exists() && Pilot.Exists())
             {
                 // void TASK_​HELI_​CHASE(Ped pilot, Entity entityToFollow, Vector3 offset
                 NativeFunction.Natives.TASK_​HELI_​CHASE(Pilot, Suspect, 20f, 20f, 60f);
@@ -96,6 +99,4 @@ internal class NewsHeliManager
         Heli.DismissIfExists();
         Pilot.DismissIfExists();
     }
-
-
 }

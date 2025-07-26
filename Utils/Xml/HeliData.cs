@@ -1,4 +1,6 @@
-﻿namespace NewsHeli.Utils;
+﻿using NewsHeli.Utils.Extentions;
+
+namespace NewsHeli.Utils;
 
 internal class HeliData
 {
@@ -10,6 +12,9 @@ internal class HeliData
         return Livery.HasValue ? $"{ModelName} (Livery {Livery})" : ModelName;
     }
 
+    /// <summary>
+    /// This reads the HeliData from the .xml settings file
+    /// </summary>
     public static List<HeliData> GetAllHelicopters()
     {
         var result = new List<HeliData>();
@@ -43,7 +48,7 @@ internal class HeliData
 
     public static Vehicle SpawnRandom(Vector3 position, float heading = 0f)
     {
-        var chosen = CustomizationXml.HeliDatas[MathHelper.GetRandomInteger(CustomizationXml.HeliDatas.Count)];
+        var chosen = CustomizationXml.HeliDatas.UseRandom();
 
         var heli = new Vehicle(chosen.ModelName, position)
         {
@@ -58,6 +63,16 @@ internal class HeliData
         {
             NativeFunction.Natives.SET_VEHICLE_LIVERY(heli, chosen.Livery.Value);
         }
+
+        Logger.Log($"Helicopter Hash is {heli.Model.Hash}, Name is {heli.Model.Name}");
+        if (heli.Model.Hash == Game.GetHashKey("CONADA"))
+        {
+            NativeFunction.Natives.SET_VEHICLE_MOD_KIT(heli, 0); // has to be called before changing SET_​VEHICLE_​MOD
+
+            Logger.Log($"[SPECIAL] Setting hardcoded WeazelNews livery for CONADA");
+            NativeFunction.Natives.SET_​VEHICLE_​MOD(heli, 48, 4, true); // Set the livery to Weazel News
+        }
+
 
         return heli;
     }

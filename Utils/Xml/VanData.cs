@@ -1,4 +1,6 @@
-﻿namespace NewsHeli.Utils;
+﻿using NewsHeli.Utils.Extentions;
+
+namespace NewsHeli.Utils;
 
 internal class VanData
 {
@@ -9,6 +11,9 @@ internal class VanData
         => Livery.HasValue ? $"{ModelName} (Livery {Livery})" : ModelName;
     
 
+    /// <summary>
+    /// This reads the VanData from the .xml settings file
+    /// </summary>
     public static List<VanData> GetAllVans()
     {
         var result = new List<VanData>();
@@ -42,7 +47,7 @@ internal class VanData
 
     public static Vehicle SpawnRandom(Vector3 position, float heading = 0f)
     {
-        VanData chosen = CustomizationXml.VanDatas[MathHelper.GetRandomInteger(CustomizationXml.VanDatas.Count)];
+        VanData chosen = CustomizationXml.VanDatas.UseRandom();
 
         Vehicle van = new Vehicle(chosen.ModelName, position)
         {

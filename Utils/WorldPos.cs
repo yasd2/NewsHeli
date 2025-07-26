@@ -2,6 +2,11 @@
 
 public class WorldPos
 {
+    /// <summary>
+    /// This function gets a position (Vector3) with street heading (float) on a gta road based on the given input position.
+    /// It can fail, then it will return the input position.
+    /// I could add a World.GetNextPositionOnStreet(100f around player) fallback.
+    /// </summary>
     public static Vector3 GetRoadPosWithHeading(Vector3 inputPosition, out Vector3 outputPosition, out float heading)
     {
         outputPosition = Vector3.Zero;

@@ -1,4 +1,6 @@
-﻿namespace NewsHeli.Utils;
+﻿using NewsHeli.Utils.Extentions;
+
+namespace NewsHeli.Utils;
 
 internal class PilotData
 {
@@ -31,12 +33,14 @@ internal class PilotData
 
     public static Ped SpawnRandom(Vector3 position, float heading = 0f)
     {
-        var chosen = CustomizationXml.PilotDatas[MathHelper.GetRandomInteger(CustomizationXml.PilotDatas.Count)];
+        var chosen = CustomizationXml.PilotDatas.UseRandom();
         return new Ped(chosen.ModelName, position, heading)
         {
             IsPersistent = true,
             IsExplosionProof = true,
-            BlockPermanentEvents = true
+            BlockPermanentEvents = true,
+            KeepTasks = true,
+            RelationshipGroup = RelationshipManager.RG_Media,
         };
     }
 }

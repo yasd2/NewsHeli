@@ -12,6 +12,9 @@ internal class CustomizationXml
 
     public static List<PassengerData> PassengerDatas = [];
 
+    /// <summary>
+    /// This reads all the customization data from the .xml settings file.
+    /// </summary>
     public static void Read()
     {
         HeliDatas = HeliData.GetAllHelicopters();

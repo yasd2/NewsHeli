@@ -1,4 +1,6 @@
-﻿namespace NewsHeli.Utils;
+﻿using NewsHeli.Utils.Extentions;
+
+namespace NewsHeli.Utils;
 
 internal class DriverData
 {
@@ -32,12 +34,14 @@ internal class DriverData
 
     public static Ped SpawnRandom(Vector3 position, float heading = 0f)
     {
-        var chosen = CustomizationXml.DriverDatas[MathHelper.GetRandomInteger(CustomizationXml.DriverDatas.Count)];
+        var chosen = CustomizationXml.DriverDatas.UseRandom();
         return new Ped(chosen.ModelName, position, heading)
         {
             IsPersistent = true,
             IsExplosionProof = true,
-            BlockPermanentEvents = true
+            BlockPermanentEvents = true,
+            KeepTasks = true,
+            RelationshipGroup = RelationshipManager.RG_Media,
         };
     }
 }

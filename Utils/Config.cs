@@ -1,5 +1,8 @@
 ﻿namespace NewsHeli.Utils;
 
+/// <summary>
+/// Here are all settings for the ini.
+/// </summary>
 internal class Config
 {
     public static Boolean EnableAIDispatch { get; set; } = true;
@@ -9,6 +12,9 @@ internal class Config
     public static Boolean EnableVan { get; set; } = true;
 
 
+    /// <summary>
+    /// This reads all the user settings from the Ini file.
+    /// </summary>
     public static void Read()
     {
         var ini = new InitializationFile("plugins/LSPDFR/NewsHeli.ini");

@@ -53,12 +53,15 @@
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Config.cs" />
+    <Compile Include="Utils\ConsoleCommands.cs" />
     <Compile Include="Utils\Extentions\EntityExtentions.cs" />
     <Compile Include="Utils\Extentions\GameFiberExtentions.cs" />
+    <Compile Include="Utils\Extentions\MathExtentions.cs" />
     <Compile Include="Utils\Global.cs" />
     <Compile Include="MainFiber.cs" />
     <Compile Include="Utils\Managers\NewsHeliManager.cs" />
     <Compile Include="Utils\Managers\NewsVanManager.cs" />
+    <Compile Include="Utils\Managers\RelationshipManager.cs" />
     <Compile Include="Utils\UpdateChecker.cs" />
     <Compile Include="Utils\WorldPos.cs" />
     <Compile Include="Utils\Xml\CustomizationXml.cs" />

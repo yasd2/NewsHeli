@@ -23,6 +23,8 @@ internal static class MainFiber
             },
             "NewsHeli_MainFiber",
             () => true);
+
+
         }, "NewsHeli_DelayStart");
     }
 
@@ -35,12 +37,13 @@ internal static class MainFiber
             timeInSeconds = 0;
             Pursuit = null;
 
-            // check if pursuit is running on loop
+            // check if pursuit is active on loop
+            // this code checks every second if a pursuit is active
+            // otherwise it will wait
             while ((Pursuit = Functions.GetActivePursuit()) == null)
             {
                 GameFiber.Yield();
                 GameFiber.Wait(1000);
-                //Logger.Log("Pursuit is null");
             }
 
             
@@ -64,6 +67,7 @@ internal static class MainFiber
                 //Logger.Log($"Pursuit active since {timeInSeconds}s");
 
 
+                // timeInSeconds is a delay for spawning
                 if (timeInSeconds == Config.ArrivalTimeHeli)
                 {
                     if (Config.EnableAIDispatch)
@@ -73,7 +77,7 @@ internal static class MainFiber
                     }
 
 
-                    // start heliclass
+                    // spawns the helicopter & tasks him to follow the suspect
                     if (Config.EnableHeli)
                     {
                         NewsHeliManager = new NewsHeliManager();
@@ -82,7 +86,7 @@ internal static class MainFiber
                 }
 
 
-
+                // timeInSeconds is a delay for spawning
                 if (timeInSeconds == Config.ArrivalTimeVan && Config.EnableVan)
                 {
                     // Start Vanclass
@@ -93,13 +97,14 @@ internal static class MainFiber
 
 
 
-            // delete all
+            // custom dispatch end audio
             if (Config.EnableAIDispatch)
             {
                 Logger.Log("Playing END audio");
                 Functions.PlayScannerAudio("END");
             }
 
+            // dismisses the entities
             NewsHeliManager?.SafeAbort();
             NewsVanManager?.SafeAbort();
 
@@ -111,6 +116,9 @@ internal static class MainFiber
 
 
 
+    /// <summary>
+    /// Dismisses all entities and aborts their tasks
+    /// </summary>
     internal static void SafeAbort()
     {
         Logger.Log("MainFiber safe aborted");
