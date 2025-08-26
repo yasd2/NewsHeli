@@ -4,8 +4,8 @@ public class Main : Plugin
 {
     public override void Initialize()
     {
-        Logger.Log("NewsHeli by Yasd loaded");
-        Game.DisplayNotification($"~g~NewsHeli by Yasd {Assembly.GetExecutingAssembly().GetName().Version} loaded");
+        Logger.Log($"NewsHeli {Assembly.GetExecutingAssembly().GetName().Version} by Yasd has been loaded");
+        PluginLoadedNoticiation();
 
         // Checks if updates are available
         UpdateChecker.Check();
@@ -29,9 +29,28 @@ public class Main : Plugin
     /// </summary>
     public override void Finally()
     {
-        Logger.Log("NewsHeli unloaded");
+        Logger.Log($"NewsHeli {Assembly.GetExecutingAssembly().GetName().Version} has been unloaded");
 
         // Clears entites and aborts tasks
         MainFiber.SafeAbort();
+    }
+
+
+    /// <summary>
+    /// A custom method which pre- and unloads a notification picture
+    /// </summary>
+    static void PluginLoadedNoticiation()
+    {
+        GameFiber.StartNew(() =>
+        {
+            NativeFunction.Natives.REQUEST_STREAMED_TEXTURE_DICT("DIA_PILOT", false);
+
+            while (!NativeFunction.Natives.HAS_STREAMED_TEXTURE_DICT_LOADED<bool>("DIA_PILOT"))
+                GameFiber.Yield();
+
+            Game.DisplayNotification("DIA_PILOT", "DIA_PILOT", "NewsHeli", $"{Assembly.GetExecutingAssembly().GetName().Version} by Yasd", "NewsHeli has been loaded.");
+        
+            NativeFunction.Natives.SET_STREAMED_TEXTURE_DICT_AS_NO_LONGER_NEEDED("DIA_PILOT");
+        });
     }
 }

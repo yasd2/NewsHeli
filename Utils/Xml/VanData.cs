@@ -1,6 +1,4 @@
-﻿using NewsHeli.Utils.Extentions;
-
-namespace NewsHeli.Utils;
+﻿namespace NewsHeli.Utils;
 
 internal class VanData
 {
@@ -47,6 +45,8 @@ internal class VanData
 
     public static Vehicle SpawnRandom(Vector3 position, float heading = 0f)
     {
+        Logger.Log("Spawning News Van...");
+
         VanData chosen = CustomizationXml.VanDatas.UseRandom();
 
         Vehicle van = new Vehicle(chosen.ModelName, position)
@@ -55,6 +55,8 @@ internal class VanData
             Heading = heading,
             IsEngineOn = true,
         };
+
+        Logger.Log($"Van Hash is {van.Model.Hash}, Name is {van.Model.Name}");
 
         if (chosen.Livery.HasValue &&
             NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(van) > chosen.Livery.Value)

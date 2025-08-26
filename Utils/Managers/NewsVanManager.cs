@@ -16,7 +16,6 @@ internal class NewsVanManager
         try
         {
             Ped suspect = Functions.GetPursuitPeds(MainFiber.Pursuit).FirstOrDefault();
-            //Vector3 pos = suspect.Exists() ? World.GetNextPositionOnStreet(suspect.Position.Around2D(70f)) : World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around2D(70f));
 
             Vector3 outputPosition;
             float heading;
@@ -29,7 +28,7 @@ internal class NewsVanManager
 
 
             Van = VanData.SpawnRandom(outputPosition, heading);
-            
+
             if (!Van.Exists())
             {
                 Logger.Log("Van doesn't exist, abort");
@@ -66,7 +65,8 @@ internal class NewsVanManager
 
             B_Van = new Blip(Van)
             {
-                Color = Color.Green,
+                Sprite = Config.SpriteVan,
+                Color = Config.ColorVan,
                 Scale = 0.4f,
                 Name = "News-Van",
             };
@@ -74,7 +74,7 @@ internal class NewsVanManager
 
             Loop();
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             Logger.Log($"FATAL ERROR NewsVanManager: {ex}");
         }
@@ -98,11 +98,13 @@ internal class NewsVanManager
             if (peds == null)
             {
                 Logger.Log("pursuit peds are null");
+                GameFiber.Wait(5000);
                 return;
             }
             else if (peds.Length <= 0)
             {
                 Logger.Log("pursuit peds are empty");
+                GameFiber.Wait(5000);
                 return;
             }
 
@@ -126,36 +128,37 @@ internal class NewsVanManager
             {
                 Logger.Log("Van is chasing suspect");
 
+                NativeFunction.Natives.TASK_​VEHICLE_​FOLLOW(Driver, Van, lastPed.CurrentVehicle,
+                    MathHelper.ConvertKilometersPerHourToMetersPerSecond(120f),
+                    /*VehicleDrivingFlag*/ 828, /*828 = VehicleDrivingFlag.Emergency, but without the Reckless flag - https://vespura.com/fivem/drivingstyle/ */
+                    /*DistanceToKeep*/ 40);
+
+
+                // Alternatives:
+
                 /* TASK_VEHICLE_ESCORT
                    TASK_VEHICLE_FOLLOW
                    TASK_VEHICLE_CHASE 
                    TASK_VEHICLE_MISSION */
 
-
-                NativeFunction.Natives.TASK_​VEHICLE_​FOLLOW(Driver, Van, lastPed.CurrentVehicle,
-                    MathHelper.ConvertKilometersPerHourToMetersPerSecond(120f),
-                    (int)VehicleDrivingFlags.Emergency,
-                    40);
-
                 /*NativeFunction.Natives.TASK_VEHICLE_ESCORT(Driver, Van, lastPed.CurrentVehicle,
                     -1,
                     MathHelper.ConvertKilometersPerHourToMetersPerSecond(120f),
-                    (int)VehicleDrivingFlags.Emergency,
+                    828,
                     20f,
                     20,
-                    40f);
+                    40f); looks like this native does the same/*
 
-
-                // Does NOT work that way, van always pits and rams suspect, even with setting flags
+                // Does NOT work that way, van always pits and rams suspect, even with setting flags, probably I'm setting them wrong
                 NativeFunction.Natives.TASK_​VEHICLE_​CHASE(Driver, lastPed);
                 NativeFunction.Natives.SET_TASK_VEHICLE_CHASE_BEHAVIOR_FLAG(Driver, 32, true);
                 NativeFunction.Natives.SET_TASK_VEHICLE_CHASE_IDEAL_PURSUIT_DISTANCE(Driver, 40f);*/
             }
             else
             {
-                if (!lastPed) { Logger.Log("lastPed doesn't exist"); return; }
-                if (!Driver) { Logger.Log("Van Driver doesn't exist"); return; }
-                if (!lastPed.CurrentVehicle) { Logger.Log("lastPeds CurrentVehicle doesn't exist"); return; }
+                if (!lastPed) { Logger.Log("lastPed doesn't exist"); GameFiber.Wait(5000); return; }
+                if (!Driver) { Logger.Log("Van Driver doesn't exist"); GameFiber.Wait(5000); return; }
+                if (!lastPed.CurrentVehicle) { Logger.Log("lastPeds CurrentVehicle doesn't exist"); GameFiber.Wait(5000); return; }
             }
 
 
@@ -176,6 +179,4 @@ internal class NewsVanManager
         Driver.DismissIfExists();
         Passenger.DismissIfExists();
     }
-
-
 }

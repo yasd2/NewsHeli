@@ -1,6 +1,4 @@
-﻿using NewsHeli.Utils.Extentions;
-
-namespace NewsHeli.Utils;
+﻿namespace NewsHeli.Utils;
 
 internal class HeliData
 {
@@ -48,6 +46,8 @@ internal class HeliData
 
     public static Vehicle SpawnRandom(Vector3 position, float heading = 0f)
     {
+        Logger.Log("Spawning News Helicopter...");
+
         var chosen = CustomizationXml.HeliDatas.UseRandom();
 
         var heli = new Vehicle(chosen.ModelName, position)
@@ -65,6 +65,7 @@ internal class HeliData
         }
 
         Logger.Log($"Helicopter Hash is {heli.Model.Hash}, Name is {heli.Model.Name}");
+
         if (heli.Model.Hash == Game.GetHashKey("CONADA"))
         {
             NativeFunction.Natives.SET_VEHICLE_MOD_KIT(heli, 0); // has to be called before changing SET_​VEHICLE_​MOD

@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,10 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LSPD First Response">
-      <HintPath>I:\Program Files\Rockstar Games\Grand Theft Auto V\plugins\LSPD First Response.dll</HintPath>
+      <HintPath>..\MCCallouts-Ko-fi\References\LSPD First Response.dll</HintPath>
     </Reference>
     <Reference Include="RagePluginHook, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>packages\RagePluginHook.1.86.1\lib\net472\RagePluginHook.dll</HintPath>
+      <HintPath>packages\RagePluginHook.1.109.1\lib\net472\RagePluginHook.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -79,8 +80,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>@echo off
-SET GTAPATH=I:\Program Files\Rockstar Games\Grand Theft Auto V
-SET DEBUG=C:\Users\Chris\Desktop\YasdsProjects\NewsHeli\bin\Debug
+SET GTAPATH=C:\Program Files\Rockstar Games\Grand Theft Auto V Legacy
+SET DEBUG=C:\Users\Chris\source\repos\yasd2\NewsHeli\bin\Debug
 
 if exist "%25GTAPATH%25" (
     copy /Y "%25DEBUG%25\NewsHeli.dll" "%25GTAPATH%25\Plugins\LSPDFR\NewsHeli.dll"

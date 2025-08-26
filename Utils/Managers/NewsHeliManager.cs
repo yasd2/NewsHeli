@@ -39,7 +39,8 @@ internal class NewsHeliManager
 
             B_Heli = new Blip(Heli)
             {
-                Color = Color.Blue,
+                Sprite = Config.SpriteHeli,
+                Color = Config.ColorHeli,
                 Scale = 0.4f,
                 Name = "News-Heli",
             };
@@ -68,7 +69,7 @@ internal class NewsHeliManager
         {
             NativeFunction.Natives.SET_MOUNTED_WEAPON_TARGET(Pilot, Suspect, 0, 0f, 0f, 0f, 3, 1);
         },
-        "",
+        "NewsHeli SearchLight Manager",
         () => HasSearchLight && Heli.Exists() && Pilot.Exists() && Suspect.Exists());
 
 
@@ -78,13 +79,13 @@ internal class NewsHeliManager
 
             if (Heli.Exists() && Suspect.Exists() && Pilot.Exists())
             {
-                // void TASK_​HELI_​CHASE(Ped pilot, Entity entityToFollow, Vector3 offset
+                // parameters: TASK_​HELI_​CHASE(Ped pilot, Entity entityToFollow, Vector3 offset
                 NativeFunction.Natives.TASK_​HELI_​CHASE(Pilot, Suspect, 20f, 20f, 60f);
             }
 
             GameFiber.Wait(5000);
         },
-        "",
+        "NewsHeli HeliTarget Manager",
         () => true);
     }
 
