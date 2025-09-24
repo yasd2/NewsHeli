@@ -1,4 +1,5 @@
 # NewsHeli – LSPDFR Plugin by Yasd
+### Official download on lcpdfr.com: https://www.lcpdfr.com/downloads/gta5mods/scripts/51090-newsheli/
 NewsHeli adds a news helicopter to police pursuits. By default, it joins the chase 30 seconds after the pursuit starts (this delay is fully customizable).
 
 Optional custom dispatch sounds can play when the helicopter arrives and when the pursuit ends.
