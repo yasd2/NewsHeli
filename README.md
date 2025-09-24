@@ -1,4 +1,5 @@
 # NewsHeli – LSPDFR Plugin by Yasd
+https://s3-screenshots.int-cdn.lcpdfrusercontent.com/monthly_2025_09/NewsHelithumbnail.png.c223743f74317124b19c7ce1c4f4df71.png
 NewsHeli adds a news helicopter to police pursuits. By default, it joins the chase 30 seconds after the pursuit starts (this delay is fully customizable).
 
 Optional custom dispatch sounds can play when the helicopter arrives and when the pursuit ends.
