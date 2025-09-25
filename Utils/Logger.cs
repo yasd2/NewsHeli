@@ -7,4 +7,7 @@ internal class Logger
 {
     public static void Log(string text)
         => Game.LogTrivial("NewsHeli: " + text);
+
+    public static void HeliView(string text)
+        => Game.LogTrivial("HeliView: " + text);
 }

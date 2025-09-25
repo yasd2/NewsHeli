@@ -22,6 +22,10 @@ public class Main : Plugin
         // Starts the gamefiber for checking if a pursuit is active
         // Here the helicopter and van are spawned, too.
         MainFiber.Start();
+
+        // Start HeliView, a gta camera with a news interface
+        //HeliView.Initialize();
+        HeliView.Initialize();
     }
 
     /// <summary>
@@ -30,6 +34,10 @@ public class Main : Plugin
     public override void Finally()
     {
         Logger.Log($"NewsHeli {Assembly.GetExecutingAssembly().GetName().Version} has been unloaded");
+
+        // Unloads the HeliView interface
+        //HeliView.Finally();
+        HeliView.Finally();
 
         // Clears entites and aborts tasks
         MainFiber.SafeAbort();
