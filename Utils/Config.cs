@@ -26,6 +26,7 @@ internal class Config
     public static bool CamTwoKeys { get; set; } = true;
     public static Keys SkipKey { get; set; } = Keys.LShiftKey;
     public static bool SkipEnabled { get; set; } = true;
+    public static String NewsText { get; set; } = "Pursuit in progress. Suspect driving a {VEHICLE}";
 
 
     /// <summary>
@@ -87,6 +88,8 @@ internal class Config
             if (SkipKey == Keys.None)
                 SkipEnabled = false;
 
+            NewsText = ini.ReadString("Settings", "NewsText", NewsText);
+
 
             Config.ToLog();
         }
@@ -119,5 +122,6 @@ internal class Config
         Logger.Log($"CamKey = {CamKey}");
         Logger.Log($"CamModifier = {CamModifier}");
         Logger.Log($"SkipKey = {SkipKey}");
+        Logger.Log($"NewsText = {NewsText}");
     }
 }

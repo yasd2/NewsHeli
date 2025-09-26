@@ -1,6 +1,5 @@
 ﻿using LucasRitter.Scaleforms;
 using LucasRitter.Scaleforms.Generic;
-using System.Text.RegularExpressions;
 
 namespace NewsHeli;
 
@@ -44,7 +43,6 @@ public class HeliView
         if (!Config.EnableHeliView)
         {
             Logger.HeliView("HeliView is disabled, aborting...");
-            Game.DisplaySubtitle("HeliView is disabled, aborting...");
             return;
         }
 
@@ -126,16 +124,38 @@ public class HeliView
                         {
                             if (currentHeliType == "news")
                             {
-
                                 // If News heli, display the news overlay
-                                string newsText = "Pursuit in progress";
-                                if (suspect.IsInAnyVehicle(false))
+                                string newsText = Config.NewsText;
+                                if (suspect && suspect.CurrentVehicle && suspect.IsInAnyVehicle(false))
                                 {
                                     // If the suspect is in a vehicle, try to get the vehicle name and display it (only considering model name with letters)
                                     string vehName = suspect.CurrentVehicle.Model.Name;
-                                    if (Regex.IsMatch(vehName, @"^[a-z]+$", RegexOptions.IgnoreCase))
-                                        newsText += ". Suspect driving a " + vehName[0].ToString().ToUpper() + vehName.Substring(1).ToLower();
+                                    newsText = newsText.Replace("{VEHICLE}", vehName[0].ToString().ToUpper() + vehName.Substring(1).ToLower());
+                                    
+                                    newsText = newsText.Replace("{MPH}", Math.Round(MathHelper.ConvertMetersPerSecondToMilesPerHour(suspect.CurrentVehicle.Speed)).ToString());
+                                    newsText = newsText.Replace("{KPH}", Math.Round(MathHelper.ConvertMetersPerSecondToKilometersPerHour(suspect.CurrentVehicle.Speed)).ToString());
                                 }
+                                else
+                                {
+                                    newsText = newsText.Replace("{VEHICLE}", "Fast car");
+                                    newsText = newsText.Replace("{MPH}", "0");
+                                    newsText = newsText.Replace("{KPH}", "0");
+                                }
+                                
+
+                                if (suspect.Exists())
+                                {
+                                    newsText = newsText.Replace("{FORENAME}", Functions.GetPersonaForPed(suspect).Forename);
+                                    newsText = newsText.Replace("{SURNAME}", Functions.GetPersonaForPed(suspect).Surname);
+                                    newsText = newsText.Replace("{FULLNAME}", Functions.GetPersonaForPed(suspect).FullName);
+                                }
+                                else
+                                {
+                                    newsText = newsText.Replace("{FORENAME}", "Max");
+                                    newsText = newsText.Replace("{SURNAME}", "Mustermann");
+                                    newsText = newsText.Replace("{FULLNAME}", "Max Mustermann");
+                                }
+                                
                                 // Update the overlay texts with the current area name every 10 seconds
                                 if (lastNewsUpdate < Game.GameTime - 1000 * 10)
                                 {
@@ -150,7 +170,6 @@ public class HeliView
                                 // Update the overlay camera parameters and draw it
                                 heliCamScaleform.Heading = customCamera.Rotation.Yaw;
                                 heliCamScaleform.Altitude = heli.Position.Z;
-                                //heliCamScaleform.FieldOfView = customCamera.FOV;      // Not sure what value to use here
                                 heliCamScaleform.Draw();
                             }
                         }
@@ -170,7 +189,7 @@ public class HeliView
     private static void StartHeliPursuit(bool switching = false)
     {
         // Select heli type (cop / news) according to settings
-        currentHeliType = HELI_TYPE == "cop" ? "cop" : (HELI_TYPE == "news" ? "news" : (new Random().Next(0, 2) == 1 ? "cop" : "news"));
+        currentHeliType = HELI_TYPE == "cop" ? "cop" : (HELI_TYPE == "news" ? "news" : (new Random().Next(2) == 1 ? "cop" : "news"));
         Game.LogTrivial("[" + pluginName + "] StartHeliPursuit with Heli type '" + currentHeliType + "'");
 
         // Spawn the heli and pilot
