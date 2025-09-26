@@ -17,10 +17,19 @@ NewsHeli is a remastered version of NewsHeliPursuit by Albo, with the goal to:
 - include more features
 
 
+## HeliView - a side feature enables a gta news camera! - NEW!
+
+With a keypress you can toggle this camera and follow the chase from the view of a helicopter! Definitely worth checking out!
+You can choose the camera type between police, news style or random.
+You can customize the appearing text with the news overlay.
+
+You can also jump between different suspects. Make sense if one is running on foot and another speeding in a vehicle. 
+
+This is made possible by SSStuart - https://github.com/SSStuart/HeliView_LSPDFRPlugin 
+
+
 ## Installation
 Open the NewsHeli zip file and drag and drop all files into your main gta folder.
-
- 
 
  
 
