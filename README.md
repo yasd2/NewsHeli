@@ -35,3 +35,8 @@ Open the NewsHeli zip file and drag and drop all files into your main gta folder
 
 ## Fitting vehicle pack
 https://de.gta5-mods.com/vehicles/the-breaking-news-pack-add-on-liveries 
+
+
+## References
+https://github.com/SSStuart/HeliView_LSPDFRPlugin
+https://github.com/LucasRitter/gtav-scaleforms
