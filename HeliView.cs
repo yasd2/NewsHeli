@@ -290,9 +290,9 @@ public class HeliView
             // Fade screen out, and show radar again
             Game.FadeScreenOut(500);
             GameFiber.Wait(500);
-            if (ENABLE_OVERLAY)
-                NativeFunction.Natives.DISPLAY_RADAR(true);
         }
+        if (ENABLE_OVERLAY)
+            NativeFunction.Natives.DISPLAY_RADAR(true);
         if (!switching)
         {
             // If the player had an active vehicle
@@ -306,8 +306,8 @@ public class HeliView
                 else if (WARP_PLAYER && !playerInVehicle)
                     Player.Position = playerPosition;
             }
-            // If the player had no vehicle, just reposition the player on foot
-            else
+            // If the player had no vehicle, just reposition the player on foot (if the player position is defined)
+            else if (playerPosition != null && playerPosition != Vector3.Zero)
                 Player.Position = playerPosition;
         }
         // Restore player control and attributes
