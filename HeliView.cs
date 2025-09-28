@@ -5,7 +5,7 @@ namespace NewsHeli;
 
 // Reference soure code LucasRitter.Scaleforms: https://github.com/LucasRitter/gtav-scaleforms
 // HeliView source code: https://github.com/SSStuart/HeliView_LSPDFRPlugin
-// This class is a slightly modified version of the original HeliView code
+// This class is a modified version of the original HeliView code
 
 public class HeliView
 {
@@ -59,6 +59,7 @@ public class HeliView
 
     public static void Finally()
     {
+        if (!Config.EnableHeliView) return;
         StopHeliPursuit(false, true);
         Game.LogTrivial(pluginName + " has been cleaned up.");
     }
@@ -313,8 +314,11 @@ public class HeliView
         Player.IsInvincible = false;
         Player.IsPositionFrozen = false;
         // Detach and disable the custom camera
-        customCamera.Active = false;
-        customCamera.Detach();
+        if (customCamera.Exists())
+        {
+            customCamera.Active = false;
+            customCamera.Detach();
+        }
         // Remove the heli and pilot
         if (heli.Exists())
         {

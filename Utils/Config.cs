@@ -1,4 +1,6 @@
-﻿namespace NewsHeli.Utils;
+﻿using Rage;
+
+namespace NewsHeli.Utils;
 
 /// <summary>
 /// Here are all settings for the ini.
